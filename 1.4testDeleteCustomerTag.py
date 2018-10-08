@@ -22,6 +22,11 @@ logging.basicConfig(level=logging.INFO)
     "code": "200"},
 {
     "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "2",
+    "code": "200"},
+{
+    "tenant": "qiushi6",
     "platformtype": "jd",
     "tagid": "2",
     "code": "200"}
