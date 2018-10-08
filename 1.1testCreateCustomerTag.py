@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO)
     "platformtype": "top",
     "tagid": "1",
     "body_data": {
-        "tagName": "test",
+        "tagName": "amytest1",
         "tagType": "String",
         "tag_default_value": "",
         "bak": "备注信息",
@@ -34,7 +34,7 @@ logging.basicConfig(level=logging.INFO)
     "platformtype": "jd",
     "tagid": "2",
     "body_data": {
-        "tagName": "test",
+        "tagName": "amytest2",
         "tagType": "Int",
         "tag_default_value": "",
         "bak": "备注信息",
