@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.INFO)
     "tenant": "qiushi6",
     "platformtype": "jd",
     "customerid": "lisi",
-    "tagid":"1",
+    "tagid":"2",
     "code": "200"
 }
 )
@@ -55,6 +55,11 @@ class RemoveTagToCustomer(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},customer_id={customer_id},tag_id={tag_id},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, customer_id=self.customerid,
+                 tag_id=self.tagid,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

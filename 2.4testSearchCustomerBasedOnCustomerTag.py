@@ -24,9 +24,9 @@ logging.basicConfig(level=logging.INFO)
     "body_data":{
         "must": [{
             "type": "TagQuery",
-            "name": "tag_name",
+            "name": "amyTag1",
             "operator": "eq",
-            "value": "tag_value"
+            "value": "zhangsan_1_value_modify"
         }],
         "not": [],
         "should": []
@@ -41,9 +41,9 @@ logging.basicConfig(level=logging.INFO)
     "body_data":{
         "must": [{
             "type": "TagQuery",
-            "name": "tag_name",
+            "name": "amyTag2",
             "operator": "eq",
-            "value": "tag_value"
+            "value": "11"
         }],
         "not": [],
         "should": []
@@ -68,7 +68,8 @@ class SearchCustomerTagBasedOnCustomer(unittest.TestCase):
         }
         host = "http://10.27.102.151:9000"
         #/api/entity/tenant/:tenantId/platformType/:platformType/customers?page&pageSize
-        url = host + '/api/entity/tenant/' + self.tenant + '/platformType/' + self.platformtype + '/customers?page=' + self.page + '&pageSize=' + self.pageSize
+        url = host + '/api/entity/tenant/' + self.tenant + '/platformType/' + self.platformtype + \
+              '/customers?page=' + self.page + '&pageSize=' + self.pageSize
         data = self.body_data
         try:
             self.response = requests.post(url, headers=headers, data=json.dumps(data))
@@ -78,6 +79,11 @@ class SearchCustomerTagBasedOnCustomer(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},page={page},page_size={page_size},body_data={body_data},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, page=self.page, page_size=self.pageSize,
+                 body_data=self.body_data,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

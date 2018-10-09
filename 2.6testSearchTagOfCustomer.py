@@ -30,7 +30,7 @@ logging.basicConfig(level=logging.INFO)
 }
 )
 class SearchTagOfCustomer(unittest.TestCase):
-    def setParameters(self, tenant, platformType,customerId,code):
+    def setParameters(self, tenant, platformType, customerId, code):
         self.tenant = tenant
         self.platformType = platformType
         self.customerId = customerId
@@ -53,6 +53,8 @@ class SearchTagOfCustomer(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error("测试数据是,tenant={tenant},platform_type={platform_type},customer_id={customer_id},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, customer_id=self.customer_id, code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

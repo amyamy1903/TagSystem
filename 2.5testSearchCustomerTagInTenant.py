@@ -38,7 +38,7 @@ class SearchCustomerTagInTenant(unittest.TestCase):
         }
         host = "http://10.27.102.151:9000"
         #/api/entity/tenant/:tenantId/tagEntityType/customerTag/tags
-        url = host + '/api/entity/tenant/' + self.tenant + '/platformType/' + self.platformtype + '/customers?page=' + self.page + '&pageSize=' + self.pageSize
+        url = host + '/api/entity/tenant/' + self.tenant + '/tagEntityType/CustomerTag/tags'
         try:
             self.response = requests.get(url, headers=headers)
         except Exception:
@@ -47,6 +47,7 @@ class SearchCustomerTagInTenant(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error("测试数据是,tenant={tenant},code={code}".format(tenant=self.tenant, code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

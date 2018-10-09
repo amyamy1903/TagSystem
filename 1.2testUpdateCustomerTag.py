@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO)
     "platformtype": "top",
     "tagid": "1",
     "body_data":{
-        "tagName" : "amytest1",
+        "tagName" : "amyTag1",
         "tagType":"String",
         "tag_default_value":"",
         "bak":"",
@@ -36,7 +36,7 @@ logging.basicConfig(level=logging.INFO)
     "platformtype": "jd",
     "tagid": "2",
     "body_data":{
-        "tagName" : "amytest2",
+        "tagName" : "amyTag2",
         "tagType":"String",
         "tag_default_value":"",
         "bak":"",
@@ -72,6 +72,10 @@ class UpdateCustomerTag(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},tag_id={tag_id},body_data={body_data},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, tag_id=self.tagid, body_data=self.body_data,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise
