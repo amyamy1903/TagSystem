@@ -47,7 +47,7 @@ logging.basicConfig(level=logging.INFO)
         "not": [],
         "should": []
     },
-    "code": "404"}
+    "code": "200"}
 )
 class SearchProductTagInTenant(unittest.TestCase):
     def setParameters(self, tenant, platformtype, page, pageSize, body_data, code):
@@ -81,12 +81,12 @@ class SearchProductTagInTenant(unittest.TestCase):
                 (tenant=self.tenant, platform_type=self.platformtype, page=self.page, page_size=self.pageSize,
                  code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
-                          .format(status=self.response.status_code, message=self.response.text))
+                          .format(status=self.response.status_code, message=self.response.text.encode('utf-8')))
             raise
 
     def checkResult(self):
         self.return_code = self.response.status_code
-        self.return_msg = self.response.text
+        self.return_msg = self.response.text.encode('utf-8')
         logging.info("return_code={return_code},return_msg={return_msg}".format(return_code=self.return_code,
                                                                                 return_msg=self.return_msg))
         self.assertEqual(str(self.return_code), self.code)

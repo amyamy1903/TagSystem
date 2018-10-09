@@ -32,7 +32,7 @@ logging.basicConfig(level=logging.INFO)
         "tagId": "2",
         "tagValue": "商品_tag2_value"
     },
-    "code": "404"}
+    "code": "400"}
 )
 class AddTagToProduct(unittest.TestCase):
     def setParameters(self, tenant, platformtype, goodid, body_data,code):
@@ -65,13 +65,12 @@ class AddTagToProduct(unittest.TestCase):
                 (tenant=self.tenant, platform_type=self.platformtype, good_id=self.goodid, body_data=self.body_data,
                  code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
-                          .format(status=self.response.status_code, message=self.response.text))
+                          .format(status=self.response.status_code, message=self.response.text.encode('utf-8')))
             raise
 
     def checkResult(self):
         self.return_code = self.response.status_code
-        self.return_msg = self.response.text
-        self.return_msg = self.response.text
+        self.return_msg = self.response.text.encode('utf-8')
         logging.info("return_code={return_code},return_msg={return_msg}".format(return_code=self.return_code,
                                                                                 return_msg=self.return_msg))
         self.assertEqual(str(self.return_code), self.code)

@@ -84,7 +84,7 @@ logging.basicConfig(level=logging.INFO)
 {
     "tenant": "qiushi6",
     "platformtype": "top",
-    "tagid": "1",
+    "tagid": "5",
     "body_data": {
         "tagName": "商品标签Boolean",
         "tagType": "Boolean",
@@ -138,17 +138,16 @@ class CreateProductTagInTenant(unittest.TestCase):
                 (tenant=self.tenant, platform_type=self.platformtype, tag_id=self.tagid, body_data=self.body_data,
                  code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
-                          .format(status=self.response.status_code, message=self.response.text))
+                          .format(status=self.response.status_code, message=self.response.text.encode('utf-8')))
             raise
 
     def checkResult(self):
         self.return_code = self.response.status_code
-        self.return_msg = self.response.text
-        self.return_msg = self.response.text
+        self.return_msg = self.response.text.encode('utf-8')
         logging.info("return_code={return_code},return_msg={return_msg}".format(return_code=self.return_code,
                                                                                 return_msg=self.return_msg))
         self.assertEqual(str(self.return_code), self.code)
 
 
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    unittest.main()

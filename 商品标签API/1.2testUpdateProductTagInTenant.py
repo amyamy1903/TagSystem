@@ -84,7 +84,6 @@ class UpdateProductTagInTenant(unittest.TestCase):
     def checkResult(self):
         self.return_code = self.response.status_code
         self.return_msg = self.response.text
-        self.return_msg = self.response.text
         logging.info("return_code={return_code},return_msg={return_msg}".format(return_code=self.return_code,
                                                                                 return_msg=self.return_msg))
         self.assertEqual(str(self.return_code), self.code)
