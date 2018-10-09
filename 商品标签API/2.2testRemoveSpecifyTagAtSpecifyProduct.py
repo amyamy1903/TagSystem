@@ -25,8 +25,8 @@ logging.basicConfig(level=logging.INFO)
     "tenant": "qiushi6",
     "platformtype": "jd",
     "goodid": "10221022",
-    "tagid": "1",
-    "code": "200"}
+    "tagid": "2",
+    "code": "404"}
 )
 class AddRemoveSpecifyTagAtSpecifyProduct(unittest.TestCase):
     def setParameters(self, tenant, platformtype, goodid, tagid,code):
@@ -53,6 +53,10 @@ class AddRemoveSpecifyTagAtSpecifyProduct(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant}, platform_type={platform_type}, good_id={good_id}, body_data={body_data}, code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, good_id=self.goodid, body_data=self.body_data,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

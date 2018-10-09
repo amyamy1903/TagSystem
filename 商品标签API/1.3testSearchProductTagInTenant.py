@@ -47,7 +47,7 @@ logging.basicConfig(level=logging.INFO)
         "not": [],
         "should": []
     },
-    "code": "200"}
+    "code": "404"}
 )
 class SearchProductTagInTenant(unittest.TestCase):
     def setParameters(self, tenant, platformtype, page, pageSize, body_data, code):
@@ -76,6 +76,10 @@ class SearchProductTagInTenant(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},page={page},page_size={page_size},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, page=self.page, page_size=self.pageSize,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

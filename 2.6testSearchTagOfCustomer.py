@@ -44,7 +44,7 @@ class SearchTagOfCustomer(unittest.TestCase):
         }
         host = "http://10.27.102.151:9000"
         #/api/entity/tenant/:tenantId/platformType/:platformType/customers/:customerId
-        url = host + '/api/entity/tenant/' + self.tenant + '/platformType/' + self.platformtype + '/customers/' + self.customerId
+        url = host + '/api/entity/tenant/' + self.tenant + '/platformType/' + self.platformType + '/customers/' + self.customerId
         try:
             self.response = requests.get(url, headers=headers)
         except Exception:
@@ -54,7 +54,7 @@ class SearchTagOfCustomer(unittest.TestCase):
             self.checkResult()
         except AssertionError:
             logging.error("测试数据是,tenant={tenant},platform_type={platform_type},customer_id={customer_id},code={code}".format
-                (tenant=self.tenant, platform_type=self.platformtype, customer_id=self.customer_id, code=self.code))
+                (tenant=self.tenant, platform_type=self.platformType, customer_id=self.customerId, code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

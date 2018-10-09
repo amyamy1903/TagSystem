@@ -13,7 +13,7 @@ import logging
 post:/api/tenant/:tenantId/platformType/:platformType/goods/tagId/:tagId/createTag
 """
 logging.basicConfig(level=logging.INFO)
-
+#boolean 0,1
 
 @paramunittest.parametrized(
 {
@@ -41,7 +41,72 @@ logging.basicConfig(level=logging.INFO)
         "tagGroup": "test_topic_group",
         "creator": "yh"
     },
-    "code": "200"}
+    "code": "404"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "3",
+    "body_data": {
+        "tagName": "商品标签Double",
+        "tagType": "Double",
+        "tag_default_value": "1.12",
+        "bak": "备注信息",
+        "tagGroup": "test_topic_group",
+        "creator": "yh"
+    },
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "4",
+    "body_data": {
+        "tagName": "商品标签LocalDate",
+        "tagType": "LocalDate",
+        "tag_default_value": "2014-02-08",
+        "bak": "备注信息",
+        "tagGroup": "test_topic_group",
+        "creator": "yh"
+    },
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "5",
+    "body_data": {
+        "tagName": "商品标签DateTime",
+        "tagType": "DateTime",
+        "tag_default_value": "2018-01-17 21:09:15.708000",
+        "bak": "备注信息",
+        "tagGroup": "test_topic_group",
+        "creator": "yh"
+    },
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "1",
+    "body_data": {
+        "tagName": "商品标签Boolean",
+        "tagType": "Boolean",
+        "tag_default_value": "0",
+        "bak": "备注信息",
+        "tagGroup": "test_topic_group",
+        "creator": "yh"
+    },
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "1",
+    "body_data": {
+        "tagName": "商品标签notexisttype",
+        "tagType": "notexisttype",
+        "tag_default_value": "",
+        "bak": "备注信息",
+        "tagGroup": "test_topic_group",
+        "creator": "yh"
+    },
+    "code": "400"}
 )
 class CreateProductTagInTenant(unittest.TestCase):
     def setParameters(self, tenant, platformtype, tagid, body_data,code):
@@ -69,6 +134,9 @@ class CreateProductTagInTenant(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error("测试数据是,tenant={tenant},platform_type={platform_type},tag_id={tag_id},body_data={body_data},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, tag_id=self.tagid, body_data=self.body_data,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

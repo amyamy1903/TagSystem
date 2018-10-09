@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO)
     "goodid": "10211021",
     "body_data": {
         "tagId": "1",
-        "tagValue": "zhangsan_1_value"
+        "tagValue": "商品_tagid1_value"
     },
     "code": "200"},
 {
@@ -29,10 +29,10 @@ logging.basicConfig(level=logging.INFO)
     "platformtype": "jd",
     "goodid": "10221022",
     "body_data": {
-        "tagId": "1",
-        "tagValue": "lisi_1_value"
+        "tagId": "2",
+        "tagValue": "商品_tag2_value"
     },
-    "code": "200"}
+    "code": "404"}
 )
 class AddTagToProduct(unittest.TestCase):
     def setParameters(self, tenant, platformtype, goodid, body_data,code):
@@ -60,6 +60,10 @@ class AddTagToProduct(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},good_id={good_id},body_data={body_data},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, good_id=self.goodid, body_data=self.body_data,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise

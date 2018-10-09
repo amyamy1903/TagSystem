@@ -24,6 +24,31 @@ logging.basicConfig(level=logging.INFO)
     "tenant": "qiushi6",
     "platformtype": "jd",
     "tagid": "2",
+    "code": "404"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "2",
+    "code": "404"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "3",
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "4",
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "5",
+    "code": "200"},
+{
+    "tenant": "qiushi6",
+    "platformtype": "top",
+    "tagid": "6",
     "code": "200"}
 )
 class DeleteProductTagInTenant(unittest.TestCase):
@@ -50,6 +75,10 @@ class DeleteProductTagInTenant(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},tag_id={tag_id},code={code}".format
+                (tenant=self.tenant, platform_type=self.platformtype, tag_id=self.tagid,
+                 code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
                           .format(status=self.response.status_code, message=self.response.text))
             raise
