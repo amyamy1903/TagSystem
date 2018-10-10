@@ -51,14 +51,17 @@ class DeleteCollectTagInTenant(unittest.TestCase):
         try:
             self.checkResult()
         except AssertionError:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},collect_type={collect_type},tag_id={tag_id},"
+                "code={code}".format(tenant=self.tenant_id, platform_type=self.platform_type, collect_type=self.collect_type,
+                                     tag_id=self.tag_id,code=self.code))
             logging.error("结果对比不一致,status={status},message={message}"
-                          .format(status=self.response.status_code, message=self.response.text))
+                          .format(status=self.response.status_code, message=self.response.text.encode('utf-8')))
             raise
 
     def checkResult(self):
         self.return_code = self.response.status_code
-        self.return_msg = self.response.text
-        self.return_msg = self.response.text
+        self.return_msg = self.response.text.encode('utf-8')
         logging.info("return_code={return_code},return_msg={return_msg}".format(return_code=self.return_code,
                                                                                 return_msg=self.return_msg))
         self.assertEqual(str(self.return_code), self.code)

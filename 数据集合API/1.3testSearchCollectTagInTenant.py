@@ -36,7 +36,7 @@ logging.basicConfig(level=logging.INFO)
 
 )
 class SearchCollectTagInTenant(unittest.TestCase):
-    def setParameters(self, tenant_id, platform_type, tag_entity_type,page,page_size, body_data, code):
+    def setParameters(self, tenant_id, platform_type, tag_entity_type, page, page_size, body_data, code):
         self.tenant_id = tenant_id
         self.platform_type = platform_type
         self.tag_entity_type = tag_entity_type
@@ -59,19 +59,23 @@ class SearchCollectTagInTenant(unittest.TestCase):
         try:
             self.response = requests.post(url, headers=headers, data=json.dumps(data))
         except Exception:
+            logging.error(
+                "测试数据是,tenant={tenant},platform_type={platform_type},tag_entity_type={tag_entity_type},page={page},"
+                "page_size={page_size}, body_data={body_data},code={code}".format
+                (tenant=self.tenant_id, platform_type=self.platform_type, tag_entity_type=self.tag_entity_type,
+                 page=self.page,page_size=self.page_size, body_data=self.body_data,code=self.code))
             logging.error("请求出现异常,status={status},message={message} ".format(status=self.response.status_code,message= self.response.text))
 
         try:
             self.checkResult()
         except AssertionError:
             logging.error("结果对比不一致,status={status},message={message}"
-                          .format(status=self.response.status_code, message=self.response.text))
+                          .format(status=self.response.status_code, message=self.response.text.encode('utf-8')))
             raise
 
     def checkResult(self):
         self.return_code = self.response.status_code
-        self.return_msg = self.response.text
-        self.return_msg = self.response.text
+        self.return_msg = self.response.text.encode('utf-8')
         logging.info("return_code={return_code},return_msg={return_msg}".format(return_code=self.return_code,
                                                                                 return_msg=self.return_msg))
         self.assertEqual(str(self.return_code), self.code)
